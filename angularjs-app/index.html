@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://cdn.jsdelivr.net/npm/single-spa-angularjs@4.2.1/lib/single-spa-angularjs.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://unpkg.com/@uirouter/angularjs@1.1.0/release/angular-ui-router.min.js"></script>
-    <script src="/main.js"></script>
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.1/lib/system/single-spa.min.js",
+          "@yassire/legacyApp": "/main.js"
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
     <link rel="stylesheet" href="root.css">
   </head>
 
-  <body ng-app="main-module">
+  <body>
     <ul class="menu">
       <li><a href="#!/ms">Microservices</a></li>
       <li><a href="#!/mf">Microfrontends</a></li>
     </ul>
     <ui-view></ui-view>
+    <script>
+      System.import("single-spa").then(function (singleSpa) {
+        window.singleSpa = singleSpa;
+        window.singleSpa.registerApplication({
+          name: "@yassire/legacyApp",
+          app: () => System.import("@yassire/legacyApp"),
+          activeWhen: ["/"],
+        });
+        window.singleSpa.start();
+      });
+    </script>
   </body>
 </html>
