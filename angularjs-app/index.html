@@ -10,34 +10,21 @@
           "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.1/lib/system/single-spa.min.js",
           "react": "https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js",
           "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js",
-          "@yassire/legacyApp": "/main.js",
           "@yassire/reactApp": "//localhost:8081/yassire-react-app.js"
         }
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
-    <link rel="stylesheet" href="root.css">
   </head>
 
   <body>
-    <ul class="menu">
-      <li><a href="#!/ms">Microservices</a></li>
-      <li><a href="#!/mf">Microfrontends</a></li>
-      <li><a href="#!/react">React</a></li>
-    </ul>
-    <ui-view></ui-view>
     <script>
       System.import("single-spa").then(function (singleSpa) {
         window.singleSpa = singleSpa;
         window.singleSpa.registerApplication({
-          name: "@yassire/legacyApp",
-          app: () => System.import("@yassire/legacyApp"),
-          activeWhen: [(location) => location.href.indexOf('react') === -1]
-        });
-        window.singleSpa.registerApplication({
           name: "@yassire/reactApp",
           app: () => System.import("@yassire/reactApp"),
-          activeWhen: ["#!/react"],
+          activeWhen: ["/"],
         });
         window.singleSpa.start();
       });

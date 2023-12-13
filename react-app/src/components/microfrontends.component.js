@@ -1,0 +1,11 @@
+export default function Microfrontends() {
+  return (
+    <ul>
+      <li>Single SPA</li>
+      <li>Module Federation</li>
+      <li>Angular</li>
+      <li>React</li>
+      <li>Vue</li>
+    </ul>
+  );
+}
