@@ -1,15 +1,25 @@
-const { merge } = require("webpack-merge");
-const singleSpaDefaults = require("webpack-config-single-spa-react");
+const path = require('path');
 
-module.exports = (webpackConfigEnv, argv) => {
-  const defaultConfig = singleSpaDefaults({
-    orgName: "yassire",
-    projectName: "react-app",
-    webpackConfigEnv,
-    argv,
-  });
-
-  return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
-  });
+module.exports = {
+  entry: path.resolve(__dirname, './src/index.js'),
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.(css)$/,
+        use: ['css-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  output: {
+    path: path.resolve(__dirname, './public'),
+    filename: 'bundle.js',
+  }
 };
